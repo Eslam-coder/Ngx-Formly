@@ -15,3 +15,11 @@
   <pre>Contact:{{contactModel | json}}</pre>
   <pre>Form is valid: {{contactForm.valid ? 'yes' : 'no'}}</pre>
 </div>
+<hr>
+
+<!--Input string-->
+Text:<input type="text" #inputText (click)="enterText($event)">
+<br>
+<!--Input numeric-->
+Number:<input type="number" min="1" [ngClass]="error == true? 'invalid' : 'valid'" #inputNo (click)="enterNo($event)">
+<div class="alert" *ngIf="error"><P>Don't Enter number less than 1</P></div>

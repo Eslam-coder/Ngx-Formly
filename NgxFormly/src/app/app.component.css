@@ -19,3 +19,7 @@ pre{
 button{
     margin-top: 5px;
 }
+
+.invalid {
+    border: 3px solid red;
+}

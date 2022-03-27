@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Contact } from './models/contact';
@@ -13,6 +13,9 @@ export class AppComponent {
   contactForm :FormGroup;
   contactModel : Contact;
   contactFields : Array<FormlyFieldConfig>
+  @ViewChild('inputText') inputText!: ElementRef;
+  @ViewChild('inputNo') inputNo!: ElementRef;
+  error:any=false;
   constructor() {
     this.contactForm = new FormGroup({});
     this.contactModel = new Contact();
@@ -66,10 +69,34 @@ export class AppComponent {
     //     }
     //   }
     // ]
+
+    // if(this.inputText){
+    //   this.inputText.addEventListener('keydown', function(event:any){
+    //     if((/\d/g).test(event.key)) event.preventDefault();
+    //   })
+    // }
   }
 
   Submit(contact:Contact){
     console.log(contact);
+  }
+
+  enterText(event:any){
+    console.log(event);
+    
+    this.inputText.nativeElement.addEventListener('keydown', function(event:any){
+        if((/\d/g).test(event.key)) event.preventDefault();
+      })
+  }
+  
+  enterNo(event:any){
+    this.inputNo.nativeElement.addEventListener('keydown',(event:any)=>{
+      if(!(/^(?:[1-9]|\d\d\d*)$/).test(event.key)) {
+        console.log(!(/^(?:[1-9]|\d\d\d*)$/).test(event.key))
+        event.preventDefault();
+        this.error = true;
+      }
+    })
   }
 }
 
